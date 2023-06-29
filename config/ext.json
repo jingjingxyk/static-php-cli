@@ -166,12 +166,11 @@
         "type": "external",
         "source": "mongodb",
         "arg-type": "custom",
-        "lib-depends": [
-            "zstd"
-        ],
         "lib-suggests": [
             "icu",
-            "openssl"
+            "openssl",
+            "zstd",
+            "zlib"
         ]
     },
     "mysqli": {
@@ -366,6 +365,15 @@
     },
     "tokenizer": {
         "type": "builtin"
+    },
+    "xlswriter": {
+        "type": "external",
+        "source": "xlswriter",
+        "arg-type": "custom",
+        "ext-depends": [
+            "zlib",
+            "zip"
+        ]
     },
     "xml": {
         "type": "builtin",
