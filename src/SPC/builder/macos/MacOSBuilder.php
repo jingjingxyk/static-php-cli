@@ -144,7 +144,7 @@ class MacOSBuilder extends BuilderBase
         $cppflags = '';
         $ldflags = '';
         $libs = '';
-
+        $envs = $this->configure_env;
         if (!empty($this->pkg_config_packages)) {
             $packages = implode(' ', $this->pkg_config_packages);
             $output = shell()->execWithResult($envs . ' pkg-config      --libs-only-l   --static  ' . $packages);
