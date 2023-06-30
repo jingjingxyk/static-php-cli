@@ -261,11 +261,11 @@ class LinuxBuilder extends BuilderBase
         }
         if (($build_target & BUILD_TARGET_FPM) === BUILD_TARGET_FPM) {
             logger()->info('building fpm');
-            $this->buildFpm($extra_libs, $use_lld);
+            $this->buildFpm($extra_libs, $use_lld, $envs);
         }
         if (($build_target & BUILD_TARGET_MICRO) === BUILD_TARGET_MICRO) {
             logger()->info('building micro');
-            $this->buildMicro($extra_libs, $use_lld, $cflags);
+            $this->buildMicro($extra_libs, $use_lld, $cflags, $envs);
         }
 
         if (php_uname('m') === $this->arch) {
@@ -307,9 +307,10 @@ class LinuxBuilder extends BuilderBase
     }
 
     /**
+     * @param  mixed            $envs
      * @throws RuntimeException
      */
-    public function buildMicro(string $extra_libs, string $use_lld, string $cflags): void
+    public function buildMicro(string $extra_libs, string $use_lld, string $cflags, $envs): void
     {
         if ($this->getPHPVersionID() < 80000) {
             throw new RuntimeException('phpmicro only support PHP >= 8.0!');
@@ -318,7 +319,9 @@ class LinuxBuilder extends BuilderBase
             $this->phar_patched = true;
             SourcePatcher::patchMicro(['phar']);
         }
-
+        shell()->cd(SOURCE_PATH . '/php-src')
+            ->exec($envs . ' make -j ' . $this->concurrency . ' micro ');
+        /*
         shell()->cd(SOURCE_PATH . '/php-src')
             ->exec('sed -i "s|//lib|/lib|g" Makefile')
             ->exec(
@@ -330,7 +333,7 @@ class LinuxBuilder extends BuilderBase
                 'EXTRA_LDFLAGS_PROGRAM=' . quote("{$cflags} {$use_lld}" . ' -all-static', "'") . ' ' .
                 'micro'
             );
-
+          */
         shell()->cd(SOURCE_PATH . '/php-src/sapi/micro')->exec(
             "{$this->cross_compile_prefix}strip --strip-all micro.sfx"
         );
@@ -341,10 +344,14 @@ class LinuxBuilder extends BuilderBase
     /**
      * 构建 fpm
      *
+     * @param  mixed                                $envs
      * @throws FileSystemException|RuntimeException
      */
-    public function buildFpm(string $extra_libs, string $use_lld): void
+    public function buildFpm(string $extra_libs, string $use_lld, $envs): void
     {
+        shell()->cd(SOURCE_PATH . '/php-src')
+            ->exec($envs . ' make -j ' . $this->concurrency . ' fpm ');
+        /*
         shell()->cd(SOURCE_PATH . '/php-src')
             ->exec('sed -i "s|//lib|/lib|g" Makefile')
             ->exec(
@@ -357,7 +364,7 @@ class LinuxBuilder extends BuilderBase
                 "EXTRA_LDFLAGS_PROGRAM='{$use_lld} -all-static' " .
                 'fpm'
             );
-
+        */
         shell()->cd(SOURCE_PATH . '/php-src/sapi/fpm')
             ->exec("{$this->cross_compile_prefix}objcopy --only-keep-debug php-fpm php-fpm.debug")
             ->exec('elfedit --output-osabi linux php-fpm')
