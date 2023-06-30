@@ -202,21 +202,6 @@ class LinuxBuilder extends BuilderBase
 
         // SourcePatcher::patchPHPBuildconf($this);
 
-        $packages = 'openssl zlib icu-uc icu-io icu-i18n readline libxml-2.0 libzstd libpq';
-        $output = shell()->execWithResult($envs . ' pkg-config      --libs-only-l   --static  ' . $packages);
-        $builddir = BUILD_ROOT_PATH;
-        $libs = $output[1][0];
-        $envs .= " CPPFLAGS=\"-I{$builddir}/include/\" ";
-        $envs .= " LDFLAGS=\"-L{$builddir}/lib/\" ";
-        $envs .= " LIBS=\"{$libs} -lstdc++ \" ";
-        if (!empty(trim($cflags))) {
-            $envs .= " CFLAGS='{$cflags} ";
-        }
-
-        // $envs = "{$envs} ' LIBS='-ldl -lpthread'";
-
-        // SourcePatcher::patchPHPBuildconf($this);
-
         shell()->cd(SOURCE_PATH . '/php-src')->exec('./buildconf --force');
 
         if ($this->getPHPVersionID() < 80000) {

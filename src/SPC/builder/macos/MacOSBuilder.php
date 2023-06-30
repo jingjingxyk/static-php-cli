@@ -141,8 +141,10 @@ class MacOSBuilder extends BuilderBase
         }
 
         $builddir = BUILD_ROOT_PATH;
+        $cppflags = '';
+        $ldflags = '';
         $libs = '';
-        $envs = $this->configure_env;
+
         if (!empty($this->pkg_config_packages)) {
             $packages = implode(' ', $this->pkg_config_packages);
             $output = shell()->execWithResult($envs . ' pkg-config      --libs-only-l   --static  ' . $packages);
@@ -152,19 +154,33 @@ class MacOSBuilder extends BuilderBase
             }
             $output = shell()->execWithResult($envs . ' pkg-config      --cflags-only-I   --static  ' . $packages);
             if (!empty($output[1][0])) {
+                $cppflags = $output[1][0];
                 logger()->info('CPPFLAGS=' . $output[1][0]);
             }
             $output = shell()->execWithResult($envs . ' pkg-config      --libs-only-L   --static  ' . $packages);
             if (!empty($output[1][0])) {
+                $ldflags = $output[1][0];
                 logger()->info('LDFLAGS=' . $output[1][0]);
             }
         }
-        $envs .= " CPPFLAGS=\"-I{$builddir}/include/\" ";
-        $envs .= " LDFLAGS=\"-L{$builddir}/lib/\" ";
-        $envs .= " LIBS=\"{$libs} -lstdc++ \" ";
+        if ($this->getLib('libiconv')) {
+            $libs .= ' -liconv ';
+        }
+        if ($this->getLib('bzip2')) {
+            $libs .= ' -lbz2';
+        }
+        if ($this->getLib('icu')) {
+            $libs .= ' -lc++ ';
+        }
+
+        $envs .= " CPPFLAGS=\"-I{$builddir}/include/ {$cppflags}\" ";
+        $envs .= " LDFLAGS=\"-L{$builddir}/lib/  {$ldflags}\" ";
+        if (!empty($libs)) {
+            $envs .= " LIBS=\"{$libs} \" ";
+        }
 
         // patch before configure
-        SourcePatcher::patchPHPBuildconf($this);
+        // SourcePatcher::patchPHPBuildconf($this);
 
         shell()->cd(SOURCE_PATH . '/php-src')->exec('./buildconf --force');
 
