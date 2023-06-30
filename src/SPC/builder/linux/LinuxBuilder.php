@@ -257,7 +257,7 @@ class LinuxBuilder extends BuilderBase
 
         if (($build_target & BUILD_TARGET_CLI) === BUILD_TARGET_CLI) {
             logger()->info('building cli');
-            $this->buildCli($extra_libs, $use_lld);
+            $this->buildCli($extra_libs, $use_lld, $envs);
         }
         if (($build_target & BUILD_TARGET_FPM) === BUILD_TARGET_FPM) {
             logger()->info('building fpm');
