@@ -72,8 +72,7 @@ EXTENSIONS="${EXTENSIONS},mysqlnd,sqlite3"
 EXTENSIONS="${EXTENSIONS},mongodb"
 EXTENSIONS="${EXTENSIONS},swoole"
 #EXTENSIONS="${EXTENSIONS},swow"
-EXTENSIONS="readline,"
-EXTENSIONS="${EXTENSIONS},swoole"
+EXTENSIONS="${EXTENSIONS},readline"
 
 
 ./bin/spc build "${EXTENSIONS}" --build-cli --cc=clang --cxx=clang++ --debug
