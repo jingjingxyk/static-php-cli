@@ -15,6 +15,7 @@ trait curl
         $extra .= ' -DCMAKE_POLICY_DEFAULT_CMP0074=NEW ';
         $extra .= ' -DCMAKE_BUILD_TYPE=Release ';
         $extra .= ' -DBUILD_SHARED_LIBS=OFF ';
+        $extra .= ' -DCMAKE_C_IMPLICIT_LINK_LIBRARIE=" " ';
 
         $extra .= ' -DZLIB_ROOT=' . BUILD_ROOT_PATH . ' ';
         // lib:openssl
