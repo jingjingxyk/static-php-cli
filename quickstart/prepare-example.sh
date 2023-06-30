@@ -75,12 +75,14 @@ EXTENSIONS="${EXTENSIONS},pdo"
 # EXTENSIONS="pdo"
 EXTENSIONS="pdo,curl,openssl,bz2,readline,pgsql,pdo_pgsql"
 EXTENSIONS="${EXTENSIONS},gmp"
+EXTENSIONS="${EXTENSIONS},swoole"
 
 ./bin/spc build:libs "zlib,openssl" --cc=clang --cxx=clang++ --debug
 
 ./bin/spc build:libs "libxml2" --cc=clang --cxx=clang++ --debug
 
 ./bin/spc build:libs "postgresql" --cc=clang --cxx=clang++ --debug
+./bin/spc build:libs "brotli" --cc=clang --cxx=clang++ --debug
 
 ./bin/spc build "${EXTENSIONS}" --build-cli --cc=clang --cxx=clang++ --debug
 exit 0
