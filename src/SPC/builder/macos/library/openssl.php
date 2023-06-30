@@ -9,4 +9,6 @@ class openssl extends MacOSLibraryBase
     use \SPC\builder\unix\library\openssl;
 
     public const NAME = 'openssl';
+
+    public string $static_flag = ' ';
 }

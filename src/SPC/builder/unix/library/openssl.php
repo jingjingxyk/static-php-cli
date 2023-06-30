@@ -34,10 +34,10 @@ trait openssl
         [$lib, $include, $destdir] = SEPARATED_PATH;
         shell()->cd($this->source_dir)
             ->exec(
-                "{$this->builder->configure_env}  ./Configure no-shared  " .
+                "{$this->builder->configure_env}  ./Configure no-shared  {$this->static_flag} " .
                 ' --prefix=' . BUILD_ROOT_PATH .
                 ' --libdir=' . BUILD_LIB_PATH .
-                ' -static ' .
+                ' -static --static ' .
                 ' no-legacy '
             )
             ->exec('make clean')

@@ -25,4 +25,6 @@ class openssl extends LinuxLibraryBase
     use \SPC\builder\unix\library\openssl;
 
     public const NAME = 'openssl';
+
+    public string $static_flag = ' -static --static ';
 }
