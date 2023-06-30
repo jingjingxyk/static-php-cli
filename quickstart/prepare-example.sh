@@ -76,7 +76,7 @@ EXTENSIONS="${EXTENSIONS},pdo"
 EXTENSIONS="pdo,curl,openssl,bz2,readline,pgsql,pdo_pgsql"
 EXTENSIONS="${EXTENSIONS},gmp"
 EXTENSIONS="${EXTENSIONS},swoole"
-EXTENSIONS="openssl"
+
 
 
 ./bin/spc build "${EXTENSIONS}" --build-cli --cc=clang --cxx=clang++ --debug
