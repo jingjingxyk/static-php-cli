@@ -13,13 +13,12 @@ trait readline
                 "{$this->builder->configure_env} ./configure " .
                 '--enable-static=yes ' .
                 '--enable-shared=no ' .
-                '--prefix= ' .
+                '--prefix=' . BUILD_ROOT_PATH . ' ' .
                 '--with-curses ' .
                 '--enable-multibyte=yes'
             )
             ->exec('make clean')
             ->exec("make -j{$this->builder->concurrency}")
-            ->exec('make install DESTDIR=' . BUILD_ROOT_PATH);
-        $this->patchPkgconfPrefix(['readline.pc']);
+            ->exec('make install');
     }
 }

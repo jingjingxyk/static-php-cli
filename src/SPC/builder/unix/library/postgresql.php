@@ -18,16 +18,27 @@ trait postgresql
     {
         [$libdir, , $destdir] = SEPARATED_PATH;
         $builddir = BUILD_ROOT_PATH;
-
-        $env = $this->builder->configure_env;
+        $envs = $this->builder->configure_env;
         $packages = 'openssl zlib icu-uc icu-io icu-i18n readline libxml-2.0 libzstd';
-        $output = shell()->execWithResult($env . ' pkg-config      --libs-only-l   --static  ' . $packages);
-        $libs = $output[1][0];
-        $env .= " CPPFLAGS=\"-I{$builddir}/include/\" ";
-        $env .= " LDFLAGS=\"-L{$builddir}/lib/\" ";
-        $env .= " LIBS=\"{$libs}\" ";
+
+        $output = shell()->execWithResult($envs . ' pkg-config      --cflags-only-I   --static  ' . $packages);
+        if (!empty($output[1][0])) {
+            $cppflags = $output[1][0];
+            $envs .= " CPPFLAGS=\"{$cppflags}\"";
+        }
+        $output = shell()->execWithResult($envs . ' pkg-config      --libs-only-L   --static  ' . $packages);
+        if (!empty($output[1][0])) {
+            $ldflags = $output[1][0];
+            $envs .= " LDFLAGS=\"{$ldflags}\" ";
+        }
+        $output = shell()->execWithResult($envs . ' pkg-config      --libs-only-l   --static  ' . $packages);
+        if (!empty($output[1][0])) {
+            $libs = $output[1][0];
+            $envs .= " LIBS=\"{$libs}\" ";
+        }
 
         FileSystem::resetDir($this->source_dir . '/build');
+
         # 有静态链接配置  参考文件： src/interfaces/libpq/Makefile
         shell()->cd($this->source_dir . '/build')->exec(
             <<<'EOF'
@@ -38,7 +49,7 @@ EOF
         shell()->cd($this->source_dir . '/build')
             ->exec(
                 <<<EOF
-            {$env} \\
+            {$envs} \\
             ../configure  \\
             --prefix={$builddir} \\
             --disable-thread-safety \\

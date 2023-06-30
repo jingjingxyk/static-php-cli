@@ -72,7 +72,7 @@ EXTENSIONS="${EXTENSIONS},mongodb"
 EXTENSIONS="${EXTENSIONS},swow"
 EXTENSIONS="${EXTENSIONS},pdo"
 
-EXTENSIONS="pdo,curl,openssl"
+EXTENSIONS="pdo,curl,openssl,bz2,readline"
 # EXTENSIONS="${EXTENSIONS},pgsql,pdo_pgsql"
 
 ./bin/spc build:libs "zlib,openssl" --cc=clang --cxx=clang++ --debug
