@@ -10,12 +10,16 @@ trait curl
 {
     protected function build()
     {
+        FileSystem::resetDir($this->source_dir . '/build');
+        // 解决curl bug https://github.com/curl/curl/issues/6167
+        shell()->cd($this->source_dir)
+            ->exec('sed -i.save s@\${CMAKE_C_IMPLICIT_LINK_LIBRARIES}@@ CMakeLists.txt');
+
         $extra = ' -DCMAKE_INSTALL_PREFIX=' . BUILD_ROOT_PATH . ' ';
         $extra .= ' -DCMAKE_BUILD_TYPE=Release ';
         $extra .= ' -DCMAKE_POLICY_DEFAULT_CMP0074=NEW ';
         $extra .= ' -DCMAKE_BUILD_TYPE=Release ';
         $extra .= ' -DBUILD_SHARED_LIBS=OFF ';
-        $extra .= ' -DCMAKE_C_IMPLICIT_LINK_LIBRARIE=" " ';
 
         $extra .= ' -DZLIB_ROOT=' . BUILD_ROOT_PATH . ' ';
         // lib:openssl
@@ -67,7 +71,6 @@ trait curl
             $extra .= ' -DCURL_USE_LIBPSL=OFF ';
         }
 
-        FileSystem::resetDir($this->source_dir . '/build');
         // compile！
         shell()->cd($this->source_dir . '/build')
             ->exec("{$this->builder->configure_env} cmake   .. {$extra}")
