@@ -13,8 +13,8 @@ trait ncurses
                 "{$this->builder->configure_env} ./configure " .
                 '--enable-static ' .
                 '--disable-shared ' .
-                '--enable-overwrite ' .
-                '--with-curses-h ' .
+                // '--enable-overwrite ' .
+                // '--with-curses-h ' .
                 '--enable-pc-files ' .
                 '--enable-echo ' .
                 '--enable-widec ' .
