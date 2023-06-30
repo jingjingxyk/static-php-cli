@@ -15,10 +15,10 @@ trait libiconv
                 "{$this->builder->configure_env} ./configure " .
                 '--enable-static ' .
                 '--disable-shared ' .
-                '--prefix='
+                '--prefix=' . $destdir
             )
             ->exec('make clean')
             ->exec("make -j{$this->builder->concurrency}")
-            ->exec('make install DESTDIR=' . $destdir);
+            ->exec('make install');
     }
 }

@@ -63,20 +63,16 @@ EXTENSIONS="${EXTENSIONS},sockets,gmp,bcmath"
 EXTENSIONS="${EXTENSIONS},pcntl"
 EXTENSIONS="${EXTENSIONS},curl"
 EXTENSIONS="${EXTENSIONS},zlib,zip,bz2"
-EXTENSIONS="${EXTENSIONS},gd"
+#EXTENSIONS="${EXTENSIONS},gd"
 EXTENSIONS="${EXTENSIONS},redis"
 EXTENSIONS="${EXTENSIONS},pdo,pdo_mysql,pdo_sqlite"
+EXTENSIONS="${EXTENSIONS},pdo,pgsql,pdo_pgsql"
 EXTENSIONS="${EXTENSIONS},mysqlnd,sqlite3"
 EXTENSIONS="${EXTENSIONS},mongodb"
-# EXTENSIONS="${EXTENSIONS},swoole"
-EXTENSIONS="${EXTENSIONS},swow"
-EXTENSIONS="${EXTENSIONS},pdo"
-
-# EXTENSIONS="pdo"
-EXTENSIONS="pdo,curl,openssl,bz2,readline,pgsql,pdo_pgsql"
-EXTENSIONS="${EXTENSIONS},gmp"
 EXTENSIONS="${EXTENSIONS},swoole"
-
+EXTENSIONS="${EXTENSIONS},swow"
+EXTENSIONS="readline,"
+EXTENSIONS="${EXTENSIONS},swoole"
 
 
 ./bin/spc build "${EXTENSIONS}" --build-cli --cc=clang --cxx=clang++ --debug
