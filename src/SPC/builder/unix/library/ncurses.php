@@ -32,5 +32,7 @@ trait ncurses
             ->exec('make clean')
             ->exec("make -j{$this->builder->concurrency}")
             ->exec('make install');
+        shell()->cd($this->source_dir)
+            ->exec('cp -f ' . BUILD_ROOT_PATH . '/lib/libncursesw.a ' . BUILD_ROOT_PATH . '/lib/libncurses.a');
     }
 }

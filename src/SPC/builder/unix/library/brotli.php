@@ -20,7 +20,6 @@ trait brotli
             )
             ->exec("cmake --build . -j {$this->builder->concurrency}")
             ->exec('make install DESTDIR=' . BUILD_ROOT_PATH);
-        $this->patchPkgconfPrefix(['libbrotlicommon.pc', 'libbrotlidec.pc', 'libbrotlienc.pc']);
         shell()->cd(BUILD_ROOT_PATH . '/lib')
             ->exec('ln -s libbrotlicommon-static.a libbrotlicommon.a')
             ->exec('ln -s libbrotlidec-static.a libbrotlidec.a')
