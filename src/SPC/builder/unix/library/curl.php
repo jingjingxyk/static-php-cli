@@ -18,7 +18,6 @@ trait curl
         $extra = ' -DCMAKE_INSTALL_PREFIX=' . BUILD_ROOT_PATH . ' ';
         $extra .= ' -DCMAKE_INSTALL_LIBDIR=' . BUILD_ROOT_PATH . '/lib/ ';
         $extra .= ' -DCMAKE_INSTALL_INCLUDEDIR=' . BUILD_ROOT_PATH . '/include ';
-        $extra .= ' -DCMAKE_BUILD_TYPE=Release ';
         $extra .= ' -DCMAKE_POLICY_DEFAULT_CMP0074=NEW ';
         $extra .= ' -DCMAKE_BUILD_TYPE=Release ';
         $extra .= ' -DBUILD_SHARED_LIBS=OFF ';

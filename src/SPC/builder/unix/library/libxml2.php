@@ -23,11 +23,13 @@ trait libxml2
         shell()->cd($this->source_dir . '/build')
             ->exec(
                 "{$this->builder->configure_env} " . ' cmake ' .
-                "-DCMAKE_INSTALL_PREFIX={$destdir} " .
-                "-DCMAKE_INSTALL_PREFIX={$destdir} " .
+                '-DCMAKE_INSTALL_PREFIX=' . BUILD_ROOT_PATH . ' ' .
+                '-DCMAKE_INSTALL_LIBDIR=' . BUILD_ROOT_PATH . '/lib/ ' .
+                '-DCMAKE_INSTALL_INCLUDEDIR=' . BUILD_ROOT_PATH . '/include ' .
+                '-DCMAKE_BUILD_TYPE=Release ' .
                 '-DBUILD_SHARED_LIBS=OFF ' .
                 '-DLIBXML2_WITH_ICONV=ON ' .
-                '-DIconv_ROOT=' . "{$destdir} " .
+                '-DIconv_ROOT=' . BUILD_ROOT_PATH . ' ' .
                 '-DIconv_IS_BUILT_IN=OFF ' .
                 "-DLIBXML2_WITH_ZLIB={$enable_zlib} " .
                 "-DLIBXML2_WITH_ICU={$enable_icu} " .
