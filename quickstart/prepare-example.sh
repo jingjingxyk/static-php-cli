@@ -78,8 +78,8 @@ EXTENSIONS="pdo,curl,openssl"
 ./bin/spc build:libs "zlib,openssl" --cc=clang --cxx=clang++ --debug
 
 ./bin/spc build:libs "libxml2" --cc=clang --cxx=clang++ --debug
-exit 0
-# ./bin/spc build:libs "postgresql"  --cc=clang --cxx=clang++ --debug
+
+./bin/spc build:libs "postgresql"  --cc=clang --cxx=clang++ --debug
 
 ./bin/spc build "${EXTENSIONS}" --build-cli --cc=clang --cxx=clang++ --debug
 exit 0
