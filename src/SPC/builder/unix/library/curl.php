@@ -15,8 +15,8 @@ trait curl
         $extra .= ' -DCMAKE_POLICY_DEFAULT_CMP0074=NEW ';
         $extra .= ' -DCMAKE_BUILD_TYPE=Release ';
         $extra .= ' -DBUILD_SHARED_LIBS=OFF ';
-        $extra .= '  -DBUILD_CURL_EXE=OFF ';
 
+        $extra .= ' -DZLIB_ROOT=' . BUILD_ROOT_PATH . ' ';
         // lib:openssl
         if ($this->builder->getLib('openssl')) {
             $extra .= ' -DCURL_USE_OPENSSL=ON -DOpenSSL_ROOT=' . BUILD_ROOT_PATH . ' ';
@@ -69,7 +69,7 @@ trait curl
         FileSystem::resetDir($this->source_dir . '/build');
         // compile！
         shell()->cd($this->source_dir . '/build')
-            ->exec("{$this->builder->configure_env} cmake   {$extra} ..")
+            ->exec("{$this->builder->configure_env} cmake   .. {$extra}")
             ->exec("make -j{$this->builder->concurrency}")
             ->exec('make install');
     }
