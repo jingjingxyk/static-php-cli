@@ -167,7 +167,7 @@ class MacOSBuilder extends BuilderBase
             $libs .= ' -liconv ';
         }
         if ($this->getLib('bzip2')) {
-            $libs .= ' -lbz2';
+            $libs .= ' -lbz2 ';
         }
         if ($this->getLib('icu')) {
             $libs .= ' -lc++ ';
@@ -185,10 +185,6 @@ class MacOSBuilder extends BuilderBase
         shell()->cd(SOURCE_PATH . '/php-src')->exec('./buildconf --force');
 
         // SourcePatcher::patchPHPConfigure($this);
-
-        if ($this->getLib('libxml2') || $this->getExt('iconv')) {
-            $extra_libs .= ' -liconv';
-        }
 
         if ($this->getPHPVersionID() < 80000) {
             $json_74 = '--enable-json ';
