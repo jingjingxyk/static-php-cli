@@ -15,7 +15,6 @@ trait xz
                 '--disable-shared ' .
                 '--disable-scripts ' .
                 '--disable-doc ' .
-                '--with-libiconv ' .
                 '--prefix=' . BUILD_ROOT_PATH
             )
             ->exec('make clean')

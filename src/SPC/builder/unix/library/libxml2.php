@@ -24,8 +24,6 @@ trait libxml2
             ->exec(
                 "{$this->builder->configure_env} " . ' cmake ' .
                 '-DCMAKE_INSTALL_PREFIX=' . BUILD_ROOT_PATH . ' ' .
-                '-DCMAKE_INSTALL_LIBDIR=' . BUILD_ROOT_PATH . '/lib/ ' .
-                '-DCMAKE_INSTALL_INCLUDEDIR=' . BUILD_ROOT_PATH . '/include ' .
                 '-DCMAKE_BUILD_TYPE=Release ' .
                 '-DBUILD_SHARED_LIBS=OFF ' .
                 '-DLIBXML2_WITH_ICONV=ON ' .
