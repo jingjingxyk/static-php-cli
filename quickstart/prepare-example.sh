@@ -74,7 +74,7 @@ EXTENSIONS="${EXTENSIONS},swoole"
 #EXTENSIONS="${EXTENSIONS},swow"
 EXTENSIONS="${EXTENSIONS},readline"
 
-./bin/spc build:libs "zlib,libiconv,icu,libxml2,onig,openssl,gmp,zstd,curl,bzip2,sqlite,ncurses,readline,postgresql,xz,brotli" --cc=clang --cxx=clang++ --debug
+# ./bin/spc build:libs "zlib,libiconv,icu,libxml2,onig,openssl,gmp,zstd,curl,bzip2,sqlite,ncurses,readline,postgresql,xz,brotli" --cc=clang --cxx=clang++ --debug
 
 ./bin/spc build "${EXTENSIONS}" --build-cli --cc=clang --cxx=clang++ --debug
 exit 0
