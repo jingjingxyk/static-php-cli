@@ -21,7 +21,21 @@ class LinuxBuilder extends BuilderBase
     use UnixBuilderTrait;
 
     /** @var string[] Linux 环境下编译依赖的命令 */
-    public const REQUIRED_COMMANDS = ['make', 'bison', 'flex', 'pkg-config', 'git', 'autoconf', 'automake', 'tar', 'unzip', /* 'xz', 好像不需要 */ 'gzip', 'bzip2', 'cmake'];
+    public const REQUIRED_COMMANDS = [
+        'make',
+        'bison',
+        'flex',
+        'pkg-config',
+        'git',
+        'autoconf',
+        'automake',
+        'tar',
+        'unzip',
+        /* 'xz', 好像不需要 */
+        'gzip',
+        'bzip2',
+        'cmake',
+    ];
 
     /** @var string 使用的 libc */
     public string $libc;
@@ -264,25 +278,31 @@ class LinuxBuilder extends BuilderBase
     }
 
     /**
+     * @param  mixed            $envs
      * @throws RuntimeException
      */
-    public function buildCli(string $extra_libs, string $use_lld): void
+    public function buildCli(string $extra_libs, string $use_lld, $envs): void
     {
         shell()->cd(SOURCE_PATH . '/php-src')
-            ->exec('sed -i "s|//lib|/lib|g" Makefile')
-            ->exec(
-                'make -j' . $this->concurrency .
-                ' EXTRA_CFLAGS="-g -Os -fno-ident ' . implode(' ', array_map(fn ($x) => "-Xcompiler {$x}", $this->tune_c_flags)) . '" ' .
-                "EXTRA_LIBS=\"{$extra_libs}\" " .
-                "EXTRA_LDFLAGS_PROGRAM='{$use_lld} -all-static' " .
-                'cli'
-            );
-
+            ->exec($envs . ' make -j ' . $this->concurrency . ' cli ');
+        /*
+    shell()->cd(SOURCE_PATH . '/php-src')
+        ->exec('sed -i "s|//lib|/lib|g" Makefile')
+        ->exec(
+            'make -j' . $this->concurrency .
+            ' EXTRA_CFLAGS="-g -Os -fno-ident ' . implode(' ', array_map(fn ($x) => "-Xcompiler {$x}", $this->tune_c_flags)) . '" ' .
+            "EXTRA_LIBS=\"{$extra_libs}\" " .
+            "EXTRA_LDFLAGS_PROGRAM='{$use_lld} -all-static' " .
+            'cli'
+        );
+    */
         shell()->cd(SOURCE_PATH . '/php-src/sapi/cli')
             ->exec("{$this->cross_compile_prefix}objcopy --only-keep-debug php php.debug")
             ->exec('elfedit --output-osabi linux php')
             ->exec("{$this->cross_compile_prefix}strip --strip-all php")
-            ->exec("{$this->cross_compile_prefix}objcopy --update-section .comment=/tmp/comment --add-gnu-debuglink=php.debug --remove-section=.note php");
+            ->exec(
+                "{$this->cross_compile_prefix}objcopy --update-section .comment=/tmp/comment --add-gnu-debuglink=php.debug --remove-section=.note php"
+            );
         $this->deployBinary(BUILD_TARGET_CLI);
     }
 
@@ -303,13 +323,17 @@ class LinuxBuilder extends BuilderBase
             ->exec('sed -i "s|//lib|/lib|g" Makefile')
             ->exec(
                 "make -j{$this->concurrency} " .
-                'EXTRA_CFLAGS=' . quote('-g -Os -fno-ident ' . implode(' ', array_map(fn ($x) => "-Xcompiler {$x}", $this->tune_c_flags))) . ' ' .
+                'EXTRA_CFLAGS=' . quote(
+                    '-g -Os -fno-ident ' . implode(' ', array_map(fn ($x) => "-Xcompiler {$x}", $this->tune_c_flags))
+                ) . ' ' .
                 'EXTRA_LIBS=' . quote($extra_libs) . ' ' .
                 'EXTRA_LDFLAGS_PROGRAM=' . quote("{$cflags} {$use_lld}" . ' -all-static', "'") . ' ' .
                 'micro'
             );
 
-        shell()->cd(SOURCE_PATH . '/php-src/sapi/micro')->exec("{$this->cross_compile_prefix}strip --strip-all micro.sfx");
+        shell()->cd(SOURCE_PATH . '/php-src/sapi/micro')->exec(
+            "{$this->cross_compile_prefix}strip --strip-all micro.sfx"
+        );
 
         $this->deployBinary(BUILD_TARGET_MICRO);
     }
@@ -325,7 +349,10 @@ class LinuxBuilder extends BuilderBase
             ->exec('sed -i "s|//lib|/lib|g" Makefile')
             ->exec(
                 'make -j' . $this->concurrency .
-                ' EXTRA_CFLAGS="-g -Os -fno-ident ' . implode(' ', array_map(fn ($x) => "-Xcompiler {$x}", $this->tune_c_flags)) . '" ' .
+                ' EXTRA_CFLAGS="-g -Os -fno-ident ' . implode(
+                    ' ',
+                    array_map(fn ($x) => "-Xcompiler {$x}", $this->tune_c_flags)
+                ) . '" ' .
                 "EXTRA_LIBS=\"{$extra_libs}\" " .
                 "EXTRA_LDFLAGS_PROGRAM='{$use_lld} -all-static' " .
                 'fpm'
@@ -335,7 +362,9 @@ class LinuxBuilder extends BuilderBase
             ->exec("{$this->cross_compile_prefix}objcopy --only-keep-debug php-fpm php-fpm.debug")
             ->exec('elfedit --output-osabi linux php-fpm')
             ->exec("{$this->cross_compile_prefix}strip --strip-all php-fpm")
-            ->exec("{$this->cross_compile_prefix}objcopy --update-section .comment=/tmp/comment --add-gnu-debuglink=php-fpm.debug --remove-section=.note php-fpm");
+            ->exec(
+                "{$this->cross_compile_prefix}objcopy --update-section .comment=/tmp/comment --add-gnu-debuglink=php-fpm.debug --remove-section=.note php-fpm"
+            );
         $this->deployBinary(BUILD_TARGET_FPM);
     }
 }
