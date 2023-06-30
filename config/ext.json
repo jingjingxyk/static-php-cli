@@ -321,10 +321,12 @@
         "source": "swoole",
         "arg-type": "custom",
         "lib-depends": [
-            "openssl"
+            "openssl",
+            "curl"
         ],
         "ext-depends": [
-            "openssl"
+            "openssl",
+            "sockets"
         ],
         "ext-suggests": [
             "curl"
