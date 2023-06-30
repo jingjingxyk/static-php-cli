@@ -24,6 +24,7 @@ trait libxml2
             ->exec(
                 "{$this->builder->configure_env} " . ' cmake ' .
                 "-DCMAKE_INSTALL_PREFIX={$destdir} " .
+                "-DCMAKE_INSTALL_PREFIX={$destdir} " .
                 '-DBUILD_SHARED_LIBS=OFF ' .
                 '-DLIBXML2_WITH_ICONV=ON ' .
                 '-DIconv_ROOT=' . "{$destdir} " .
