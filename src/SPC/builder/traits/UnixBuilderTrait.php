@@ -151,10 +151,10 @@ trait UnixBuilderTrait
      */
     public function makeCmakeArgs(): string
     {
-        [$lib, $include] = SEPARATED_PATH;
+        [$lib, $include,$prefix] = SEPARATED_PATH;
         $extra = $this instanceof LinuxBuilder ? '-DCMAKE_C_COMPILER=' . $this->cc . ' ' : '';
         return $extra . '-DCMAKE_BUILD_TYPE=Release ' .
-            '-DCMAKE_INSTALL_PREFIX=/ ' .
+            "-DCMAKE_INSTALL_PREFIX={$prefix} " .
             "-DCMAKE_INSTALL_LIBDIR={$lib} " .
             "-DCMAKE_INSTALL_INCLUDEDIR={$include} " .
             "-DCMAKE_TOOLCHAIN_FILE={$this->cmake_toolchain_file}";

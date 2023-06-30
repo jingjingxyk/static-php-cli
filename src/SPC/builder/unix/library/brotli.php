@@ -19,11 +19,11 @@ trait brotli
                 '..'
             )
             ->exec("cmake --build . -j {$this->builder->concurrency}")
-            ->exec('make install DESTDIR=' . BUILD_ROOT_PATH);
+            ->exec('make install');
         shell()->cd(BUILD_ROOT_PATH . '/lib')
-            ->exec('ln -s libbrotlicommon-static.a libbrotlicommon.a')
-            ->exec('ln -s libbrotlidec-static.a libbrotlidec.a')
-            ->exec('ln -s libbrotlienc-static.a libbrotlienc.a');
+            ->exec('cp -f  libbrotlicommon-static.a libbrotlicommon.a')
+            ->exec('cp -f libbrotlidec-static.a libbrotlidec.a')
+            ->exec('cp -f libbrotlienc-static.a libbrotlienc.a');
         foreach (FileSystem::scanDirFiles(BUILD_ROOT_PATH . '/lib/', false, true) as $filename) {
             if (str_starts_with($filename, 'libbrotli') && (str_contains($filename, '.so') || str_ends_with($filename, '.dylib'))) {
                 unlink(BUILD_ROOT_PATH . '/lib/' . $filename);
