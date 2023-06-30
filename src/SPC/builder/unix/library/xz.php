@@ -13,15 +13,13 @@ trait xz
                 "{$this->builder->configure_env} ./configure " .
                 '--enable-static ' .
                 '--disable-shared ' .
-                "--host={$this->builder->gnu_arch}-unknown-linux " .
                 '--disable-scripts ' .
                 '--disable-doc ' .
                 '--with-libiconv ' .
-                '--prefix='
+                '--prefix=' . BUILD_ROOT_PATH
             )
             ->exec('make clean')
             ->exec("make -j{$this->builder->concurrency}")
-            ->exec('make install DESTDIR=' . BUILD_ROOT_PATH);
-        $this->patchPkgconfPrefix(['liblzma.pc']);
+            ->exec('make install');
     }
 }
