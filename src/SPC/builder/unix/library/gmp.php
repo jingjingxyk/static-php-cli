@@ -12,11 +12,10 @@ trait gmp
             ->exec(
                 "{$this->builder->configure_env} ./configure " .
                 '--enable-static --disable-shared ' .
-                '--prefix='
+                '--prefix=' . BUILD_ROOT_PATH
             )
             ->exec('make clean')
             ->exec("make -j{$this->builder->concurrency}")
-            ->exec('make install DESTDIR=' . BUILD_ROOT_PATH);
-        $this->patchPkgconfPrefix(['gmp.pc']);
+            ->exec('make install');
     }
 }
