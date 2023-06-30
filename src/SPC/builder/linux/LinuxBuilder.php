@@ -158,7 +158,10 @@ class LinuxBuilder extends BuilderBase
                 throw new WrongUsageException('libc ' . $this->libc . ' is not implemented yet');
         }
         $builddir = BUILD_ROOT_PATH;
+        $cppflags = '';
+        $ldflags = '';
         $libs = '';
+
         if (!empty($this->pkg_config_packages)) {
             $packages = implode(' ', $this->pkg_config_packages);
             $output = shell()->execWithResult($envs . ' pkg-config      --libs-only-l   --static  ' . $packages);
@@ -168,13 +171,41 @@ class LinuxBuilder extends BuilderBase
             }
             $output = shell()->execWithResult($envs . ' pkg-config      --cflags-only-I   --static  ' . $packages);
             if (!empty($output[1][0])) {
+                $cppflags = $output[1][0];
                 logger()->info('CPPFLAGS=' . $output[1][0]);
             }
             $output = shell()->execWithResult($envs . ' pkg-config      --libs-only-L   --static  ' . $packages);
             if (!empty($output[1][0])) {
+                $ldflags = $output[1][0];
                 logger()->info('LDFLAGS=' . $output[1][0]);
             }
         }
+        if ($this->getLib('libiconv')) {
+            $libs .= ' -liconv ';
+        }
+        if ($this->getLib('bzip2')) {
+            $libs .= ' -lbz2';
+        }
+        if ($this->getLib('icu')) {
+            $libs .= ' -lstdc++';
+        }
+
+        $envs .= " CPPFLAGS=\"-I{$builddir}/include/ {$cppflags}\" ";
+        $envs .= " LDFLAGS=\"-L{$builddir}/lib/  {$ldflags}\" ";
+        if (!empty($libs)) {
+            $envs .= " LIBS=\"{$libs} \" ";
+        }
+
+        if (!empty(trim($cflags))) {
+            $envs .= " CFLAGS='{$cflags} ";
+        }
+
+        // SourcePatcher::patchPHPBuildconf($this);
+
+        $packages = 'openssl zlib icu-uc icu-io icu-i18n readline libxml-2.0 libzstd libpq';
+        $output = shell()->execWithResult($envs . ' pkg-config      --libs-only-l   --static  ' . $packages);
+        $builddir = BUILD_ROOT_PATH;
+        $libs = $output[1][0];
         $envs .= " CPPFLAGS=\"-I{$builddir}/include/\" ";
         $envs .= " LDFLAGS=\"-L{$builddir}/lib/\" ";
         $envs .= " LIBS=\"{$libs} -lstdc++ \" ";
@@ -182,11 +213,11 @@ class LinuxBuilder extends BuilderBase
             $envs .= " CFLAGS='{$cflags} ";
         }
 
+        // $envs = "{$envs} ' LIBS='-ldl -lpthread'";
+
         // SourcePatcher::patchPHPBuildconf($this);
 
         shell()->cd(SOURCE_PATH . '/php-src')->exec('./buildconf --force');
-
-        SourcePatcher::patchPHPConfigure($this);
 
         if ($this->getPHPVersionID() < 80000) {
             $json_74 = '--enable-json ';

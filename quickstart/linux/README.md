@@ -2,7 +2,7 @@
 
 > 提供了 debian 11 构建 和 alpine 构建环境
 
-> 任意选一个就可以 
+> 任意选一个就可以
 
 ## debian 11 构建环境
 
@@ -18,6 +18,7 @@ sh quickstart/linux/connection-static-php-cli.sh
 sh quickstart/linux/debian-init.sh
 # 准备构建基础软件 使用镜像 
 sh quickstart/linux/debian-init.sh --mirror china 
+
 
 ```
 

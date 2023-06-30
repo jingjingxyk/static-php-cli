@@ -34,6 +34,8 @@ trait UnixBuilderTrait
 
     public array $pkg_config_packages = [];
 
+    public array $no_pkg_config_libs = [];
+
     public function getAllStaticLibFiles(): array
     {
         $libs = [];
@@ -52,7 +54,12 @@ trait UnixBuilderTrait
         foreach ($libs as $lib) {
             if (!in_array($lib::NAME, $libNames, true)) {
                 $libNames[] = $lib::NAME;
-                $this->pkg_config_packages = array_merge($this->pkg_config_packages, $lib->getPackages());
+                $packages = $lib->getPackages();
+                if (empty($packages)) {
+                    $this->no_pkg_config_libs[] = $lib::NAME;
+                } else {
+                    $this->pkg_config_packages = array_merge($this->pkg_config_packages, $packages);
+                }
                 array_unshift($libFiles, ...$lib->getStaticLibs());
             }
         }

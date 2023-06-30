@@ -25,8 +25,6 @@ bash quickstart/prepare.sh
 
 ## macos build
 
-## prepare PHP runtime
-
 ```shell
 
 bash bin/setup-runtime
@@ -37,6 +35,5 @@ bash bin/setup-runtime --mirror china
 cp quickstart/prepare-example.sh  quickstart/prepare.sh
 # vi quickstart/prepare.sh
 bash quickstart/prepare.sh
-
 
 ```

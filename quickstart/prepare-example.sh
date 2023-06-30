@@ -38,7 +38,9 @@ alias php="php -d curl.cainfo=${__PROJECT__}/bin/cacert.pem -d openssl.cafile=${
 
 export COMPOSER_ALLOW_SUPERUSER=1
 #composer suggests --all
+
 # composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+
 #composer update --no-dev --optimize-autoloader
 #composer update  --optimize-autoloader
 
@@ -69,18 +71,19 @@ EXTENSIONS="${EXTENSIONS},mongodb"
 # EXTENSIONS="${EXTENSIONS},swoole"
 EXTENSIONS="${EXTENSIONS},swow"
 EXTENSIONS="${EXTENSIONS},pdo"
+
 EXTENSIONS="pdo,curl,openssl"
 # EXTENSIONS="${EXTENSIONS},pgsql,pdo_pgsql"
 
-./bin/spc build:libs "zlib,openssl"  --cc=clang --cxx=clang++ --debug
-exit 0
-./bin/spc build:libs "libxml2"  --cc=clang --cxx=clang++ --debug
+./bin/spc build:libs "zlib,openssl" --cc=clang --cxx=clang++ --debug
 
+./bin/spc build:libs "libxml2" --cc=clang --cxx=clang++ --debug
+exit 0
 # ./bin/spc build:libs "postgresql"  --cc=clang --cxx=clang++ --debug
 
 ./bin/spc build "${EXTENSIONS}" --build-cli --cc=clang --cxx=clang++ --debug
 exit 0
-./bin/spc build:libs "libiconv,libxml2,zstd,zlib,openssl,ncurses,readline,icu,postgresql"  --cc=clang --cxx=clang++ --debug
+./bin/spc build:libs "libiconv,libxml2,zstd,zlib,openssl,ncurses,readline,icu,postgresql" --cc=clang --cxx=clang++ --debug
 exit 0
 
 # ./bin/spc build "${EXTENSIONS}" --build-cli --cc=gcc --cxx=g++  --debug
