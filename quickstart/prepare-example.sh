@@ -72,6 +72,7 @@ EXTENSIONS="${EXTENSIONS},mongodb"
 EXTENSIONS="${EXTENSIONS},swow"
 EXTENSIONS="${EXTENSIONS},pdo"
 
+# EXTENSIONS="pdo"
 EXTENSIONS="pdo,curl,openssl,bz2,readline,pgsql,pdo_pgsql"
 # EXTENSIONS="${EXTENSIONS},pgsql,pdo_pgsql"
 
@@ -79,11 +80,13 @@ EXTENSIONS="pdo,curl,openssl,bz2,readline,pgsql,pdo_pgsql"
 
 ./bin/spc build:libs "libxml2" --cc=clang --cxx=clang++ --debug
 
-./bin/spc build:libs "postgresql"  --cc=clang --cxx=clang++ --debug
+./bin/spc build:libs "postgresql" --cc=clang --cxx=clang++ --debug
 
 ./bin/spc build "${EXTENSIONS}" --build-cli --cc=clang --cxx=clang++ --debug
 exit 0
+
 ./bin/spc build:libs "libiconv,libxml2,zstd,zlib,openssl,ncurses,readline,icu,postgresql" --cc=clang --cxx=clang++ --debug
+
 exit 0
 
 # ./bin/spc build "${EXTENSIONS}" --build-cli --cc=gcc --cxx=g++  --debug

@@ -19,7 +19,6 @@ sh quickstart/linux/debian-init.sh
 # 准备构建基础软件 使用镜像 
 sh quickstart/linux/debian-init.sh --mirror china 
 
-
 ```
 
 ## aline 构建环境
