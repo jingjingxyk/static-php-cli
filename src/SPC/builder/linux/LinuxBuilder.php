@@ -86,12 +86,12 @@ class LinuxBuilder extends BuilderBase
         );
 
         $this->configure_env = 'PKG_CONFIG_PATH="' . BUILD_LIB_PATH . '/pkgconfig" ' .
-            ' export PATH=' . BUILD_ROOT_PATH . '/bin/:' .
+            ' PATH=' . BUILD_ROOT_PATH . '/bin/:' .
             BUILD_ROOT_PATH . '/sbin/:' .
             BUILD_ROOT_PATH . '/usr/bin/:' .
             BUILD_ROOT_PATH . '/usr/sbin/:$PATH  ' .
-            " export CC='{$this->cc}' " .
-            " export CXX='{$this->cxx}' ";
+            " CC='{$this->cc}' " .
+            " CXX='{$this->cxx}' ";
         //  (php_uname('m') === $this->arch ? '' : "CFLAGS='{$this->arch_c_flags}'");
         // 交叉编译依赖的，TODO
         if (php_uname('m') !== $this->arch) {
