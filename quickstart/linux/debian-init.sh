@@ -37,6 +37,9 @@ china)
     test -f /etc/apt//etc/apt/sources.list.d/debian.sources.save || cp /etc/apt/sources.list.d/debian.sources /etc/apt/sources.list.d/debian.sources.save
     sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources
     ;;
+  *)
+    echo 'no match debian os version'
+    ;;
   esac
 
   ;;
