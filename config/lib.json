@@ -2,9 +2,10 @@
     "brotli": {
         "source": "brotli",
         "static-libs-unix": [
-            "libbrotlidec-static.a",
-            "libbrotlienc-static.a",
-            "libbrotlicommon-static.a"
+            "libbrotlidec.a",
+            "libbrotlienc.a",
+            "libbrotlicommon.a",
+            "libbrotli.a"
         ],
         "static-libs-windows": [
             "brotlicommon-static.lib",
