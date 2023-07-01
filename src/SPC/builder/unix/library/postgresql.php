@@ -47,6 +47,17 @@ trait postgresql
 EOF
         );
 
+        shell()->cd($this->source_dir . '/build')->exec(
+            <<<'EOF'
+            sed -i.backup "293 s/^/#$/"  ../src/Makefile.shlib
+EOF
+        );
+        shell()->cd($this->source_dir . '/build')->exec(
+            <<<'EOF'
+            sed -i.backup "441 s/^/#$/"  ../src/Makefile.shlib
+EOF
+        );
+
         shell()->cd($this->source_dir . '/build')
             ->exec(
                 <<<EOF
