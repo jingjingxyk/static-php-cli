@@ -70,15 +70,15 @@ EXTENSIONS="${EXTENSIONS},pdo,pdo_mysql,pdo_sqlite"
 EXTENSIONS="${EXTENSIONS},pdo,pgsql,pdo_pgsql"
 EXTENSIONS="${EXTENSIONS},mysqlnd,sqlite3"
 EXTENSIONS="${EXTENSIONS},mongodb"
-EXTENSIONS="${EXTENSIONS},swoole"
+#EXTENSIONS="${EXTENSIONS},swoole"
 #EXTENSIONS="${EXTENSIONS},swow"
 EXTENSIONS="${EXTENSIONS},readline"
 
 # ./bin/spc build:libs "zlib,libiconv,icu,libxml2,onig,openssl,gmp,zstd,curl,bzip2,sqlite,ncurses,readline,postgresql,xz,brotli" --cc=clang --cxx=clang++ --debug
 
-# ./bin/spc build "${EXTENSIONS}" --build-cli --cc=musl-gcc --cxx=g++ --debug
+./bin/spc build "${EXTENSIONS}" --build-cli --cc=musl-gcc --cxx=g++ --debug
 # ./bin/spc build "${EXTENSIONS}" --build-cli --cc=clang --cxx=clang++ --debug
-./bin/spc build "${EXTENSIONS}" --build-cli --cc=gcc --cxx=g++ --debug
+# ./bin/spc build "${EXTENSIONS}" --build-cli --cc=gcc --cxx=g++ --debug
 exit 0
 ./bin/spc build:libs "zlib,openssl,libxml2,postgresql,brotli" --cc=clang --cxx=clang++ --debug
 
