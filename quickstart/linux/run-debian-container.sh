@@ -20,6 +20,7 @@ cd ${__DIR__}
 cd ${__DIR__}
 
 IMAGE=debian:11
+IMAGE=debian:12
 
 cd ${__DIR__}
 docker run --rm --name static-php-cli-dev -d -v ${__PROJECT__}:/work -w /work $IMAGE tail -f /dev/null
