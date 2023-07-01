@@ -24,6 +24,7 @@ trait brotli
             ->exec('make install');
         shell()->cd(BUILD_ROOT_PATH . '/lib')
             ->exec('cp -f  libbrotlicommon-static.a libbrotlicommon.a')
+            ->exec('cp -f  libbrotlicommon-static.a libbrotli.a')
             ->exec('cp -f libbrotlidec-static.a libbrotlidec.a')
             ->exec('cp -f libbrotlienc-static.a libbrotlienc.a');
         foreach (FileSystem::scanDirFiles(BUILD_ROOT_PATH . '/lib/', false, true) as $filename) {
