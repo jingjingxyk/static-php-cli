@@ -51,5 +51,3 @@ apt install -y xz-utils autoconf automake lld libtool cmake bison re2c gettext c
 apt install -y pkg-config bzip2 flex p7zip
 apt install -y musl-tools g++
 apt install -y clang
-
-apt install -y linux-headers-$(uname -r)
