@@ -40,4 +40,4 @@ apt install -y pkg-config bzip2 flex p7zip
 apt install -y musl-tools g++
 apt install -y clang
 
-apt install -y musl-dev musl-tools linux-headers-$(uname -r)
+apt install -y  linux-headers-$(uname -r)

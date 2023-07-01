@@ -17,7 +17,7 @@ trait zstd
         $extra .= ' -DBUILD_SHARED_LIBS=OFF ';
         $extra .= ' -DZSTD_BUILD_STATIC=ON ';
         $extra .= ' -DZSTD_BUILD_SHARED=OFF ';
-        $extra .= ' -DZSTD_BUILD_CONTRIB=ON ';
+        $extra .= ' -DZSTD_BUILD_CONTRIB=OFF ';
         $extra .= ' -DZSTD_BUILD_PROGRAMS=ON ';
         $extra .= ' -DZSTD_BUILD_TESTS=OFF ';
         $extra .= ' -DZSTD_LEGACY_SUPPORT=ON ';
