@@ -72,21 +72,31 @@ EOF
 EOF
             );
 
-        shell()->cd($this->source_dir . '/build')->exec(
-            <<<'EOF'
-            make -C src/bin/pg_config install
-            make -C src/include install
+        shell()->cd($this->source_dir . '/build')->exec($envs . ' make -C src/bin/pg_config install');
+        shell()->cd($this->source_dir . '/build')->exec($envs . ' make -C src/include install');
+        shell()->cd($this->source_dir . '/build')->exec($envs . ' make -C  src/common install');
+        shell()->cd($this->source_dir . '/build')->exec($envs . ' make -C  src/backend/port install');
+        shell()->cd($this->source_dir . '/build')->exec($envs . ' make -C  src/port install');
+        shell()->cd($this->source_dir . '/build')->exec($envs . ' make -C  src/backend/libpq install');
+        shell()->cd($this->source_dir . '/build')->exec($envs . ' make -C  src/interfaces/libpq install');
 
-            make -C  src/common install
+        /*
+           shell()->cd($this->source_dir . '/build')->exec(
+               <<<'EOF'
+               make -C src/bin/pg_config install
+               make -C src/include install
 
-            make -C  src/backend/port install
-            make -C  src/port install
+               make -C  src/common install
 
-            make -C  src/backend/libpq install
-            make -C  src/interfaces/libpq install
-     
-EOF
-        );
+               make -C  src/backend/port install
+               make -C  src/port install
+
+               make -C  src/backend/libpq install
+               make -C  src/interfaces/libpq install
+
+   EOF
+           );
+       */
 
         shell()->cd($this->source_dir . '/build')->exec(
             <<<EOF
