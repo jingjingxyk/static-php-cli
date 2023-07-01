@@ -20,7 +20,7 @@ trait postgresql
         $builddir = BUILD_ROOT_PATH;
         $env = $this->builder->configure_env;
         $envs = $env;
-        $packages = 'openssl zlib  readline libxml-2.0 libzstd'; // icu-uc icu-io icu-i18n
+        $packages = 'openssl zlib  readline libxml-2.0 '; // icu-uc icu-io icu-i18n libzstd
 
         $output = shell()->execWithResult($env . ' pkg-config      --cflags-only-I   --static  ' . $packages);
         if (!empty($output[1][0])) {
@@ -30,7 +30,7 @@ trait postgresql
         $output = shell()->execWithResult($env . ' pkg-config      --libs-only-L   --static  ' . $packages);
         if (!empty($output[1][0])) {
             $ldflags = $output[1][0];
-            $envs .= " LDFLAGS=\"{$ldflags} -static \" ";
+            $envs .= " LDFLAGS=\"{$ldflags} -static\" ";
         }
         $output = shell()->execWithResult($env . ' pkg-config      --libs-only-l   --static  ' . $packages);
         if (!empty($output[1][0])) {
@@ -68,12 +68,12 @@ EOF
             --enable-coverage=no \\
             --with-ssl=openssl  \\
             --with-readline \\
-            --without-icu \\
+            --with-icu \\
             --without-ldap \\
             --with-libxml  \\
             --without-libxslt \\
             --without-lz4 \\
-            --with-zstd \\
+            --without-zstd \\
             --without-perl \\
             --without-python \\
             --without-pam \\
@@ -82,7 +82,7 @@ EOF
             --without-tcl
 EOF
             );
-
+        // 方便调试，
         shell()->cd($this->source_dir . '/build')->exec($envs . ' make -C src/bin/pg_config install');
         shell()->cd($this->source_dir . '/build')->exec($envs . ' make -C src/include install');
         shell()->cd($this->source_dir . '/build')->exec($envs . ' make -C  src/common install');
@@ -90,24 +90,6 @@ EOF
         shell()->cd($this->source_dir . '/build')->exec($envs . ' make -C  src/port install');
         shell()->cd($this->source_dir . '/build')->exec($envs . ' make -C  src/backend/libpq install');
         shell()->cd($this->source_dir . '/build')->exec($envs . ' make -C  src/interfaces/libpq install');
-
-        /*
-           shell()->cd($this->source_dir . '/build')->exec(
-               <<<'EOF'
-               make -C src/bin/pg_config install
-               make -C src/include install
-
-               make -C  src/common install
-
-               make -C  src/backend/port install
-               make -C  src/port install
-
-               make -C  src/backend/libpq install
-               make -C  src/interfaces/libpq install
-
-   EOF
-           );
-       */
 
         shell()->cd($this->source_dir . '/build')->exec(
             <<<EOF
