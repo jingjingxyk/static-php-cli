@@ -43,7 +43,7 @@ trait postgresql
         # 有静态链接配置  参考文件： src/interfaces/libpq/Makefile
         shell()->cd($this->source_dir . '/build')->exec(
             <<<'EOF'
-            sed -i.backup "s/invokes exit\'; exit 1;/invokes exit\';/"  ../src/interfaces/libpq/Makefile 
+            sed -i.backup "s/invokes exit'; exit 1;/invokes exit';/"  ../src/interfaces/libpq/Makefile 
 EOF
         );
 

@@ -37,7 +37,6 @@ trait openssl
                 "{$this->builder->configure_env}  ./Configure no-shared  {$this->static_flag} " .
                 ' --prefix=' . BUILD_ROOT_PATH .
                 ' --libdir=' . BUILD_LIB_PATH .
-                ' -static --static ' .
                 ' no-legacy '
             )
             ->exec('make clean')
