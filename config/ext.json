@@ -322,13 +322,12 @@
         "arg-type": "custom",
         "lib-depends": [
             "openssl",
-            "curl"
+            "curl",
+            "brotli"
         ],
         "ext-depends": [
             "openssl",
-            "sockets"
-        ],
-        "ext-suggests": [
+            "sockets",
             "curl"
         ],
         "unix-only": true
