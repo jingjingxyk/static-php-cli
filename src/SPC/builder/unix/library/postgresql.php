@@ -30,7 +30,7 @@ trait postgresql
         $output = shell()->execWithResult($env . ' pkg-config      --libs-only-L   --static  ' . $packages);
         if (!empty($output[1][0])) {
             $ldflags = $output[1][0];
-            $envs .= " LDFLAGS=\"{$ldflags}\" ";
+            $envs .= " LDFLAGS=\"{$ldflags} -static \" ";
         }
         $output = shell()->execWithResult($env . ' pkg-config      --libs-only-l   --static  ' . $packages);
         if (!empty($output[1][0])) {
