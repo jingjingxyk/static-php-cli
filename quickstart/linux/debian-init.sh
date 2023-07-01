@@ -25,20 +25,19 @@ done
 
 case "$mirror" in
 china)
-  VERSION_ID=$(cat /etc/os-release | grep '^VERSION_ID=' | awk -F '=' '{print $2}')
-  echo $VERSION_ID
+  VERSION_ID=$(cat /etc/os-release | grep '^VERSION_ID=' | awk -F '=' '{print $2}' | sed "s/\"//g")
   case $VERSION_ID in
-  "11")
+  11)
     test -f /etc/apt/sources.list.save || cp /etc/apt/sources.list /etc/apt/sources.list.save
     sed -i "s@deb.debian.org@mirrors.ustc.edu.cn@g" /etc/apt/sources.list &&
       sed -i "s@security.debian.org@mirrors.ustc.edu.cn@g" /etc/apt/sources.list
     ;;
-  "12")
+  12)
     test -f /etc/apt//etc/apt/sources.list.d/debian.sources.save || cp /etc/apt/sources.list.d/debian.sources /etc/apt/sources.list.d/debian.sources.save
     sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources
     ;;
   *)
-    echo 'no match debian os version'
+    echo 'no match debian os version' . $VERSION_ID
     ;;
   esac
 
