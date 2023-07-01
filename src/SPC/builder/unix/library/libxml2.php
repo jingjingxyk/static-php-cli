@@ -15,8 +15,11 @@ trait libxml2
     public function build()
     {
         $enable_zlib = $this->builder->getLib('zlib') ? 'ON' : 'OFF';
+        $enable_zlib = 'OFF';
         $enable_icu = $this->builder->getLib('icu') ? 'ON' : 'OFF';
+        $enable_icu = 'OFF';
         $enable_xz = $this->builder->getLib('xz') ? 'ON' : 'OFF';
+        $enable_xz = 'OFF';
 
         $destdir = BUILD_ROOT_PATH;
         FileSystem::resetDir($this->source_dir . '/build');
