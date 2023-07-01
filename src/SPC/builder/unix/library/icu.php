@@ -10,7 +10,7 @@ trait icu
     {
         $os = $this->os;
         $root = BUILD_ROOT_PATH;
-        $cppflag = 'CPPFLAGS="-DU_CHARSET_IS_UTF8=1  -DU_USING_ICU_NAMESPACE=1  -DU_STATIC_IMPLEMENTATION=1"';
+        $cppflag = 'CPPFLAGS="-DU_CHARSET_IS_UTF8=1  -DU_USING_ICU_NAMESPACE=1  -DU_STATIC_IMPLEMENTATION=1 " CPP=g++ ';
         shell()->cd($this->source_dir . '/source')
             ->exec(
                 "{$this->builder->configure_env} {$cppflag} ./runConfigureICU " . $os . ' ' .

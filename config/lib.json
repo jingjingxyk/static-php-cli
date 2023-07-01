@@ -473,8 +473,8 @@
             "zstd",
             "openssl",
             "zlib",
-            "readline",
-            "icu"
+            "readline"
+
         ],
         "pkg-config-packages-unix": [
             "libpq"
