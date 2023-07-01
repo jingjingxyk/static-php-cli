@@ -200,7 +200,7 @@ class LinuxBuilder extends BuilderBase
         if ($this->getLib('bzip2')) {
             $libs .= ' -lbz2 ';
         }
-        if ($this->getLib('icu')) {
+        if ($this->getLib('icu') or $this->getExt('swoole')) {
             # $libs .= ' -lstdc++ ';
             $libs .= ' -lc++ ';
         }
