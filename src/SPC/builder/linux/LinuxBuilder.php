@@ -213,7 +213,7 @@ class LinuxBuilder extends BuilderBase
         if (!empty(trim($cflags))) {
             $envs .= " CFLAGS='{$cflags} ";
         }
-        $envs .= " CFLAGS='-g -Os  -static-libgcc '";
+        $envs .= " CFLAGS='-g -Os   '"; // -static-libgcc
         // SourcePatcher::patchPHPBuildconf($this);
 
         shell()->cd(SOURCE_PATH . '/php-src')->exec('./buildconf --force');
