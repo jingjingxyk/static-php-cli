@@ -63,6 +63,7 @@ chmod +x ${__DIR__}/composer
 # download cacert.pem
 test -f ${__DIR__}/cacert.pem || curl -#fSL -o ${__DIR__}/cacert.pem  "$__CACERT_URL__"
 # sanity check for php and composer
+export COMPOSER_ALLOW_SUPERUSER=1
 ${__DIR__}/php -v >/dev/null || { echo "Failed to run php" && exit 1; }
 ${__DIR__}/php ${__DIR__}/composer --version >/dev/null || { echo "Failed to run composer" && exit 1; }
 
