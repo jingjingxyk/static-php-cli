@@ -213,7 +213,7 @@ class LinuxBuilder extends BuilderBase
         if (!empty(trim($cflags))) {
             $envs .= " CFLAGS='{$cflags} ";
         }
-
+        $envs .= " CFLAGS='-g -Os  -static-libgcc";
         // SourcePatcher::patchPHPBuildconf($this);
 
         shell()->cd(SOURCE_PATH . '/php-src')->exec('./buildconf --force');
@@ -254,7 +254,7 @@ class LinuxBuilder extends BuilderBase
             logger()->info('bloat linking');
             $extra_libs = "-Wl,--whole-archive {$extra_libs} -Wl,--no-whole-archive";
         }
-        $envs .= " LDFLAGS=\"{$ldflags} -static -all-static -static-libgcc \"  ";
+        $envs .= " LDFLAGS=\"{$ldflags} -static -all-static  \"  ";
         if (($build_target & BUILD_TARGET_CLI) === BUILD_TARGET_CLI) {
             logger()->info('building cli');
             $this->buildCli($extra_libs, $use_lld, $envs);
