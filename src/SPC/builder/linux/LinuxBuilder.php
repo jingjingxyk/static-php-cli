@@ -205,7 +205,7 @@ class LinuxBuilder extends BuilderBase
         }
 
         $envs .= " CPPFLAGS=\"-I{$builddir}/include/ {$cppflags}\" ";
-        $envs .= " LDFLAGS=\"-L{$builddir}/lib/  {$ldflags}\" ";
+        $envs .= " LDFLAGS=\"-L{$builddir}/lib/  {$ldflags} -static \"  ";
         if (!empty($libs)) {
             $envs .= " LIBS=\"{$libs} \" ";
         }
