@@ -201,7 +201,8 @@ class LinuxBuilder extends BuilderBase
             $libs .= ' -lbz2 ';
         }
         if ($this->getLib('icu')) {
-            $libs .= ' -lstdc++ ';
+            # $libs .= ' -lstdc++ ';
+            $libs .= ' -lc++ ';
         }
 
         $envs .= " CPPFLAGS=\"-I{$builddir}/include/ {$cppflags}\" ";
