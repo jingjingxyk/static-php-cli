@@ -26,5 +26,7 @@ class openssl extends LinuxLibraryBase
 
     public const NAME = 'openssl';
 
-    public string $static_flag = ' -static --static ';
+    public string $env = ' CC="$CC -fPIE -pie -static -idirafter /usr/include/ -idirafter /usr/include/x86_64-linux-gnu/" ';
+
+    public string $static_flag = '-static --static ';
 }

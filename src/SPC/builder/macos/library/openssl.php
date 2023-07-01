@@ -10,5 +10,7 @@ class openssl extends MacOSLibraryBase
 
     public const NAME = 'openssl';
 
+    public string $env = '';
+
     public string $static_flag = ' ';
 }
