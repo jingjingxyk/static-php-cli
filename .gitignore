@@ -26,3 +26,6 @@ composer.lock
 !/bin/setup-runtime
 !/bin/spc-alpine-docker
 quickstart/prepare.sh
+downloads.zip
+var/
+webui/public/data/

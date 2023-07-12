@@ -1,0 +1,6 @@
+FROM    nginx:1.23-alpine
+
+RUN  rm -rf /usr/share/nginx/html/*
+ADD  ./default.conf /etc/nginx/conf.d/default.conf
+ADD  ./downloads.zip  /usr/share/nginx/html/downloads.zip
+
