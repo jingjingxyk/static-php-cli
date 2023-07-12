@@ -21,7 +21,7 @@ IMAGE="docker.io/jingjingxyk/static-php-cli:download-box-nginx-alpine-1.0-202307
 mkdir -p var 
 echo "${IMAGE}" > var/download-box.txt
 
-bash sapi/download-box/download-box-server-run.sh
+bash download-box/download-box-server-run.sh
 
 ```
 
@@ -40,7 +40,7 @@ bash sapi/download-box/download-box-server-run.sh
 
 ```bash
 
-bash sapi/download-box/download-box-get-archive-from-container.sh
+bash download-box/download-box-get-archive-from-container.sh
 
 ```
 
@@ -51,7 +51,7 @@ bash sapi/download-box/download-box-get-archive-from-container.sh
 
 ```bash
 
-bash  sapi/download-box/download-box-get-archive-from-server.sh
+bash  download-box/download-box-get-archive-from-server.sh
 
 ```
 
