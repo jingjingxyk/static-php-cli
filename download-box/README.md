@@ -5,10 +5,10 @@
 ```bash
 
 # 准备依赖库源码包
-bash sapi/download-box/download-box-init.sh
+bash download-box/download-box-init.sh
 
 # 将源码包  打包到容器中
-bash sapi/download-box/download-box-build.sh
+bash download-box/download-box-build.sh
 
 ```
 
