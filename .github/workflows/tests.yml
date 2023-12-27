@@ -146,3 +146,11 @@ jobs:
         run: |
           bin/spc build $(php src/globals/test-extensions.php cmd) --build-cli --build-micro --build-fpm --debug 
           # bin/spc build $(php src/globals/test-extensions.php cmd) --build-cli --debug --cc=clang --cxx=clang++
+
+      - name: production artifacts
+        if: 1
+        uses: actions/upload-artifact@v3
+        with:
+          name: php
+          retention-days: 7
+          path: ${{ github.workspace }}/buildroot/bin/php
