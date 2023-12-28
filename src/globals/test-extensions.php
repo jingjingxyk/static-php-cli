@@ -17,8 +17,10 @@ $additional_libs = 'libwebp,libjpeg,freetype';
 $additional_libs .= '';
 
 $extensions .= ',swoole';
+$extensions = 'swoole';
 
 $additional_libs .= ',postgresql';
+$additional_libs = 'postgresql';
 
 if (!isset($argv[1])) {
     exit("Please use 'extensions', 'cmd' or 'libs' as output type");
