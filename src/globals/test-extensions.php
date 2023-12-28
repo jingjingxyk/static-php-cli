@@ -17,7 +17,7 @@ $additional_libs = 'libwebp,libjpeg,freetype';
 $additional_libs .= '';
 
 $extensions .= ',swoole';
-$extensions = 'swoole';
+$extensions = 'swoole,pdo_pgsql';
 $extensions = 'pdo_pgsql';
 
 $additional_libs .= ',postgresql';
