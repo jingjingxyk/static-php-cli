@@ -443,7 +443,8 @@
         ],
         "lib-suggests": [
             "postgresql",
-            "unixodbc"
+            "unixodbc",
+            "sqlite"
         ],
         "unix-only": true
     },

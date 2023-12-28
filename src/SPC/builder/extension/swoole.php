@@ -21,7 +21,7 @@ class swoole extends Extension
 
         // enable this feature , need remove pdo_sqlite
         // more info : https://wenda.swoole.com/detail/109023
-        // $arg .= $this->builder->getLib('sqlite') ? ' --enable-swoole-sqlite ' : ' ';
+        $arg .= $this->builder->getLib('sqlite') ? ' --enable-swoole-sqlite ' : ' ';
 
         // enable this feature , need stop pdo_*
         // $arg .= $this->builder->getLib('unixodbc') ? ' --with-swoole-odbc=unixODBC,'  : ' ';
