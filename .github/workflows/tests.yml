@@ -151,6 +151,6 @@ jobs:
         if: 1
         uses: actions/upload-artifact@v3
         with:
-          name: php
+          name: ${{ runner.os }}-php-${{ matrix.php }}
           retention-days: 7
           path: ${{ github.workspace }}/buildroot/bin/php
