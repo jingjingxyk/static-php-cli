@@ -16,3 +16,4 @@ parameters:
             - ./src/globals/tests/swoole.php
             - ./src/globals/tests/swoole.phpt
             - ./src/globals/tests/swoole.t.php
+            - ./src/globals/tests/swoole-pgsql.php
