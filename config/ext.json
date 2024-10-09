@@ -1004,12 +1004,12 @@
             "zstd"
         ]
     },
-    "fricc2": {
+    "fricc2load": {
         "support": {
             "BSD": "wip"
         },
         "type": "external",
-        "source": "ext-fricc2",
+        "source": "ext-fricc2load",
         "arg-type": "custom",
         "ext-depends": [
             "zlib"

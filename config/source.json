@@ -172,11 +172,12 @@
             "path": "LICENSE"
         }
     },
-    "ext-fricc2": {
+    "ext-fricc2load": {
         "type": "git",
-        "path": "php-src/ext/fricc2",
+        "path": "php-src/ext/fricc2load",
         "rev": "main",
         "url": "https://github.com/hoowa/FRICC2.git",
+        "patch": "patchFri2ccLoad",
         "license": {
             "type": "file",
             "path": "LICENSE"
