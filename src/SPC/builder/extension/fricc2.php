@@ -12,6 +12,6 @@ class fricc2 extends Extension
 {
     public function getUnixConfigureArg(): string
     {
-        return '--enable-fricc2load=static';
+        return '--enable-fricc2=static';
     }
 }
