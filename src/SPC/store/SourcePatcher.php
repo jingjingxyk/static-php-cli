@@ -25,6 +25,7 @@ class SourcePatcher
         FileSystem::addSourceExtractHook('pdo_sqlsrv', [SourcePatcher::class, 'patchSQLSRVWin32']);
         FileSystem::addSourceExtractHook('yaml', [SourcePatcher::class, 'patchYamlWin32']);
         FileSystem::addSourceExtractHook('libyaml', [SourcePatcher::class, 'patchLibYaml']);
+        //FileSystem::addSourceExtractHook('fri2ccload', [SourcePatcher::class, 'patchFri2ccload']);
     }
 
     /**
