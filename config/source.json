@@ -174,8 +174,8 @@
     },
     "ext-fricc2": {
         "type": "git",
-        "path": "php-src/ext/zstd",
-        "rev": "master",
+        "path": "php-src/ext/fricc2load",
+        "rev": "main",
         "url": "https://github.com/hoowa/FRICC2.git",
         "license": {
             "type": "file",
